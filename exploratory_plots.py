@@ -19,8 +19,8 @@ def heat_map(df):
     plt.xticks(size=8)
     plt.yticks(size=8)
     plt.show()
+    return plt
 
-def 
 
 def main():
     df = pd.read_csv("Attrition_dummy.csv")
