@@ -14,8 +14,17 @@ def scatter_plot(df, col1, col2):
     return plt
 
 
+def heat_map(df):
+    sns.heatmap(df.corr())
+    plt.xticks(size=8)
+    plt.yticks(size=8)
+    plt.show()
+
+def 
+
 def main():
     df = pd.read_csv("Attrition_dummy.csv")
+    # heat_map(df)
     # a = scatter_plot(df, "Age", "JobLevel")
     # b = scatter_plot(df, "Age", "TotalWorkingYears")
     # c = scatter_plot(df, "JobLevel", "MonthlyIncome")

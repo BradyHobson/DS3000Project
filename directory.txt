@@ -7,3 +7,12 @@ JobRole{'Sales Executive': 1, 'Research Scientist': 2, 'Laboratory Technician': 
 MaritalStatus{'Single': 1, 'Married': 2, 'Divorced': 3}
 Over18{'Y': 1}
 OverTime{'Yes': 1, 'No': 2}
+Attrition{'Yes': 1, 'No': 2}
+BusinessTravel{'Travel_Rarely': 1, 'Travel_Frequently': 2, 'Non-Travel': 3}
+Department{'Sales': 1, 'Research & Development': 2, 'Human Resources': 3}
+EducationField{'Life Sciences': 1, 'Other': 2, 'Medical': 3, 'Marketing': 4, 'Technical Degree': 5, 'Human Resources': 6}
+Gender{'Female': 1, 'Male': 2}
+JobRole{'Sales Executive': 1, 'Research Scientist': 2, 'Laboratory Technician': 3, 'Manufacturing Director': 4, 'Healthcare Representative': 5, 'Manager': 6, 'Sales Representative': 7, 'Research Director': 8, 'Human Resources': 9}
+MaritalStatus{'Single': 1, 'Married': 2, 'Divorced': 3}
+Over18{'Y': 1}
+OverTime{'Yes': 1, 'No': 2}
