@@ -24,7 +24,7 @@ def heat_map(df):
 
 def main():
     df = pd.read_csv("Attrition_dummy.csv")
-    # heat_map(df)
+    heat_map(df)
     # a = scatter_plot(df, "Age", "JobLevel")
     # b = scatter_plot(df, "Age", "TotalWorkingYears")
     # c = scatter_plot(df, "JobLevel", "MonthlyIncome")
