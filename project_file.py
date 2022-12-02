@@ -90,8 +90,11 @@ def classification(df, meter1, meter2):
     X_test[meter1] = scaler.transform(X_test[meter1])
 
     #predict the labels for the test set
-    y_pred   = svm.predict(X_test)
-                                                   
+    prediction = svm.predict(X_test)
+    
+    report = classification_report(y_test, prediction)
+    
+    return report, prediciton
 
 
 if __name__ == "__main__":
