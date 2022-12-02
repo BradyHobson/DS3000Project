@@ -5,6 +5,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.model_selection import GridSearchCV
+import seaborn as sns
 
 
 def linear_regress(df, meter1, meter2):
@@ -59,6 +63,35 @@ def knn(df, meter1, meter2):
     prediction = knn.predict(X_test)
     report = classification_report(y_test, prediction)
     return report, prediction
+
+def classification(df, meter1, meter2):
+    X = df[meter1]
+    y = df[meter2]
+    
+    #test and train
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=7, stratify=y)
+    
+    #copy over
+    X_train = X_train.copy()
+    X_test  = X_test.copy()
+    
+    #normalize the numeric features
+    scaler = StandardScaler()
+
+    #train
+    scaler.fit(X_train[meter1])
+    X_train[meter1] = scaler.transform(X_train[meter1]) 
+    
+    #initialize the classifier and fit
+    svm = SVC()
+    svm.fit(X_train, y_train) 
+    
+    #encode & scale the new/test data
+    X_test[meter1] = scaler.transform(X_test[meter1])
+
+    #predict the labels for the test set
+    y_pred   = svm.predict(X_test)
+                                                   
 
 
 if __name__ == "__main__":
