@@ -67,52 +67,51 @@ def knn(df, meter1, meter2):
 def classification(df, meter1, meter2):
     X = df[meter1]
     y = df[meter2]
-    
-    #test and train
+
+    # test and train
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=7, stratify=y)
-    
-    #copy over
+
+    # copy over
     X_train = X_train.copy()
-    X_test  = X_test.copy()
-    
-    #normalize the numeric features
+    X_test = X_test.copy()
+
+    # normalize the numeric features
     scaler = StandardScaler()
 
-    #train
+    # train
     scaler.fit(X_train[meter1])
-    X_train[meter1] = scaler.transform(X_train[meter1]) 
-    
-    #initialize the classifier and fit
+    X_train[meter1] = scaler.transform(X_train[meter1])
+
+    # initialize the classifier and fit
     svm = SVC()
-    svm.fit(X_train, y_train) 
-    
-    #encode & scale the new/test data
+    svm.fit(X_train, y_train)
+
+    # encode & scale the new/test data
     X_test[meter1] = scaler.transform(X_test[meter1])
 
-    #predict the labels for the test set
+    # predict the labels for the test set
     prediction = svm.predict(X_test)
-    
+
     report = classification_report(y_test, prediction)
-    
+
     cv_results = hyperparameters(X_train, y_train)
-    
-    return cv_results, report, prediciton
+
+    return cv_results, report, prediction
 
 
-def hyperparameters(X_train, y_train)
-    
-    params = {'C': np.arange(1, 10),'gamma': np.arange(1, 5)}
+def hyperparameters(X_train, y_train):
+    params = {'C': np.arange(1, 10), 'gamma': np.arange(1, 5)}
 
     svm = SVC()
 
-    #initialize Grid Search with Cross Validation
-    svm_grid = GridSearchCV(estimator = svm, param_grid = params, cv=5, return_train_score = True)
+    # initialize Grid Search with Cross Validation
+    svm_grid = GridSearchCV(estimator=svm, param_grid=params, cv=5, return_train_score=True)
     svm_grid.fit(X_train, y_train)
-    
-    #cv results for the train and test set
+
+    # cv results for the train and test set
     cv_results = pd.DataFrame(svm_grid.cv_results_)
     cv_results = cv_results.sort_values('mean_test_score', ascending=False)
-    
+
     return cv_results[['mean_train_score', 'std_train_score', 'mean_test_score', 'std_test_score']]
 
 
@@ -127,11 +126,10 @@ if __name__ == "__main__":
                                   "StockOptionLevel"], "Attrition")
     print("KNN predictions: ", prediction)
     print("KNN Report:", report)
-    
-    cv_results, class_report, class_prediciton = classification(df, ["Age", "Gender", "JobLevel", "MonthlyIncome", "YearsSinceLastPromotion",
-                                  "StockOptionLevel"], "Attrition")
+
+    cv_results, class_report, class_prediciton = classification(df, ["Age", "Gender", "JobLevel", "MonthlyIncome",
+                                                                     "YearsSinceLastPromotion",
+                                                                     "StockOptionLevel"], "Attrition")
     print("Classification predictions:", class_prediciton)
     print("Classification Report:", class_report)
     print("Cross Validation Results: ", cv_results)
-    
-    
